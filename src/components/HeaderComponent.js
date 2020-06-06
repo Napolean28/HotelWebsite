@@ -87,8 +87,7 @@ class Header extends Component {
                     <ModalBody>
                     <Form onSubmit={this.handleLogin}>
                             <FormGroup>
-                                <Label htmlFor="username">Username</Label>
-                                // innerRef is used because ref is already used for something else in react
+                                <Label htmlFor="username">Username</Label>                                  
                                 <Input type="text" id="username" name="username"
                                     innerRef={(input) => this.username = input} />
                             </FormGroup>
