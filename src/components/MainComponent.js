@@ -16,7 +16,7 @@ const mapStateToProps = state => {
       comments: state.comments,
       promotions: state.promotions,
       leaders: state.leaders
-    };
+    }
 }
 class Main extends Component {
   constructor(props){
@@ -47,9 +47,9 @@ class Main extends Component {
           <Switch>
             <Route path="/home" component={HomePage} />
             <Route path='/menu/:dishId' component={DishWithId} />
-            <Route exact path="/menu" component={() => <Menu dishes={this.dishes} />} />
+            <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
             <Route exact path="/contactus" component={Contact} />
-            <Route exact path="/aboutus" component={() => <About leaders={this.leaders} />} />
+            <Route exact path="/aboutus" component={() => <About leaders={this.props.leaders} />} />
             <Redirect to="/home" />
           </Switch>
         <Footer />
