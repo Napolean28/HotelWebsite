@@ -4,17 +4,24 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import {Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform,Stagger, Fade } from 'react-animation-components';
 
 function RenderDish({ dish }) {
     if (dish != null) {
         return (
-            <Card >
-                <CardImg top src={baseUrl + dish.image} alt={dish.name} />                  
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                <Card>
+                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         )
     }
     else {
@@ -34,24 +41,29 @@ function RenderComments({ comments,dishId, postComment }) {
     const cmts = comments.map(comment => {
         return (
             <li key={comment.id}>
-                <p>{comment.comment}</p>
-                <p>-- {comment.author},&nbsp;
+                <Fade in>
+                    <p>{comment.comment}</p>
+                    <p>-- {comment.author},&nbsp;
                         {new Intl.DateTimeFormat('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: '2-digit'
-                }).format(new Date(comment.date))}
-                </p>
+                        year: 'numeric',
+                        month: 'long',
+                        day: '2-digit'
+                    }).format(new Date(comment.date))}
+                    </p>
+                </Fade>
             </li>
         )
     })
 
     return (
-        <div>
-            <h4>Comments</h4>
-            <ul className="list-unstyled">{cmts}</ul>
-            <CommentForm dishId={dishId} postComment={postComment}/>
-        </div>
+        <Stagger in>
+            <div>
+                <h4>Comments</h4>
+                <ul className="list-unstyled">{cmts}</ul>
+                <CommentForm dishId={dishId} postComment={postComment}/>
+            </div>
+        </Stagger>
+        
     )
 
 }
